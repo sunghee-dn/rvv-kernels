@@ -17,7 +17,7 @@ LD := $(GCC_TOOLCHAIN_DIR)/bin/$(TARGET)-ld
 CFLAGS := --target=$(TARGET) -march=rv64gcv1p0 -menable-experimental-extensions -mllvm --riscv-v-vector-bits-min=256 -O2 --gcc-toolchain=$(GCC_TOOLCHAIN_DIR)
 LDFLAGS := -fuse-ld=$(LD) $(CFLAGS)
 
-BINS := bin/spmv bin/axpy
+BINS := bin/spmv bin/axpy bin/spmv32 bin/axpy32 bin/axpy32int
 ASMS := spmv.S axpy.S gemm.S memcpy.S dot.S nrm2.S asum.S stencil.S test.S widen_narrow.S merge.S spdot.S
 IRS := $(patsubst %.S,%.ll,$(ASMS))
 INSTS := $(patsubst %.S,%.inst,$(ASMS))
@@ -33,7 +33,16 @@ spike-%: bin/%
 bin/spmv: spmv.o spmv_main.o common.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
+bin/spmv32: spmv32.o spmv32_main.o common.o
+	$(CXX) $(LDFLAGS) $^ -o $@
+
 bin/axpy: axpy.o axpy_main.o common.o
+	$(CXX) $(LDFLAGS) $^ -o $@
+
+bin/axpy32: axpy32.o axpy32_main.o common.o
+	$(CXX) $(LDFLAGS) $^ -o $@
+
+bin/axpy32int: axpy32int.o axpy32int_main.o common.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 %.o: %.cpp $(CXX)
