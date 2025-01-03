@@ -18,7 +18,7 @@ CFLAGS := --target=$(TARGET) -march=rv64gcv1p0 -menable-experimental-extensions 
 LDFLAGS := -fuse-ld=$(LD) $(CFLAGS)
 
 BINS := bin/spmv bin/axpy bin/spmv32 bin/axpy32 bin/axpy32int
-ASMS := spmv.S axpy.S gemm.S memcpy.S dot.S nrm2.S asum.S stencil.S test.S widen_narrow.S merge.S spdot.S
+ASMS := spmv.S axpy.S gemm.S memcpy.S dot.S nrm2.S asum.S stencil.S test.S widen_narrow.S merge.S spdot.S axpy32.S axpy32int.S
 IRS := $(patsubst %.S,%.ll,$(ASMS))
 INSTS := $(patsubst %.S,%.inst,$(ASMS))
 

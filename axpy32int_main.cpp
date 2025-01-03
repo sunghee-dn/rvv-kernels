@@ -47,25 +47,25 @@ int main() {
 
   for (int i = 0; i < N; i++) {
     if (fabs(y[i] - y2[i]) > 1e-6) {
-      printf("Mismatch at %d: %d and %d\n", i, y[i], y1[i]);
+      printf("Mismatch at %d: %d and %d\n", i, y[i], y2[i]);
       return 1;
     }
   }
 
   for (int i = 0; i < N; i++) {
     if (fabs(y[i] - y3[i]) > 1e-6) {
-      printf("Mismatch at %d: %d and %d\n", i, y[i], y1[i]);
+      printf("Mismatch at %d: %d and %d\n", i, y[i], y3[i]);
       return 1;
     }
   }
 
   printf("Test passed!\n");
 
-  uint32_t begin = get_time_us();
+  uint64_t begin = get_time_us();
   for (int i = 0; i < REPEAT; i++) {
     axpy32int(N, a, x, y);
   }
-  uint32_t elapsed = get_time_us() - begin;
+  uint64_t elapsed = get_time_us() - begin;
   double gflops = 2e-3 * N * REPEAT / elapsed;
   printf("axpy32 disable vectorize: %.2f us %.2f gflops\n", (double)elapsed / REPEAT,
          gflops);

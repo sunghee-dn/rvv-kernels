@@ -61,11 +61,11 @@ int main() {
 
   printf("Test passed!\n");
 
-  uint32_t begin = get_time_us();
+  uint64_t begin = get_time_us();
   for (int i = 0; i < REPEAT; i++) {
     axpy32(N, a, x, y);
   }
-  uint32_t elapsed = get_time_us() - begin;
+  uint64_t elapsed = get_time_us() - begin;
   double gflops = 2e-3 * N * REPEAT / elapsed;
   printf("axpy32 disable vectorize: %.2f us %.2f gflops\n", (double)elapsed / REPEAT,
          gflops);
